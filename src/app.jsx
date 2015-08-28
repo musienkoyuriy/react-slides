@@ -7,5 +7,7 @@ var slidesData = [
 	{name: 'photo3', src: 'http://daynin.github.io/clojurescript-presentation/img/react-logo.png'}
 ]; 
 
-React.render(<Slider slides={slidesData} />, document.getElementById('slider-wrap'));
+React.render(<Slider slides={slidesData} 
+					 interval={3000} />, 
+			document.getElementById('slider-wrap'));
 

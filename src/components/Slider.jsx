@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Slide from './Slide.jsx';
-import sliderCSS from '../sliderStyles.js';
+import getStyles from '../sliderStyles.js';
 
 const ARROW_LEFT_KEY_CODE = 37;
 const ARROW_RIGHT_KEY_CODE = 39;
@@ -8,7 +8,7 @@ const ARROW_RIGHT_KEY_CODE = 39;
 export default class Slider extends Component {
 	constructor() {
 		super();
-		
+
 		this.state = {
 			currentSlideIndex: 0
 		};
@@ -43,20 +43,30 @@ export default class Slider extends Component {
 
 		if (pressedKey === ARROW_LEFT_KEY_CODE) {
 			this._goBack();
+			this.setTransitionInterval();
 		} else if (pressedKey === ARROW_RIGHT_KEY_CODE) {
 			this._goForward();
+			this.setTransitionInterval();
 		} else {
 			return false;
 		}
 	}
 
 	componentDidMount() {
-		window.addEventListener('keydown', this._onKeyPressHandle.bind(this))
+		window.addEventListener('keydown', this._onKeyPressHandle.bind(this));
+		this.setTransitionInterval();
+	}
+
+	setTransitionInterval() {
+		if (this.interval) {
+			clearInterval(this.interval);
+		}
+		this.interval = setInterval(this._goForward.bind(this), this.props.interval)
 	}
 
 	render() {
 		return (
-			<div className="slider" style={sliderCSS}>
+			<div className="slider" style={getStyles().sliderCSS}>
 				 <Slide value={this.props.slides[this.state.currentSlideIndex]}/>;
 			</div>
 		);

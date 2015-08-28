@@ -58,7 +58,8 @@
 
 	var slidesData = [{ name: 'photo1', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/React.js_logo.svg/2000px-React.js_logo.svg.png' }, { name: 'photo2', src: 'http://blog.addthiscdn.com/wp-content/uploads/2014/11/addthis-react-flux-javascript-scaling.png' }, { name: 'photo3', src: 'http://daynin.github.io/clojurescript-presentation/img/react-logo.png' }];
 
-	_react2['default'].render(_react2['default'].createElement(_componentsSliderJsx2['default'], { slides: slidesData }), document.getElementById('slider-wrap'));
+	_react2['default'].render(_react2['default'].createElement(_componentsSliderJsx2['default'], { slides: slidesData,
+		interval: 3000 }), document.getElementById('slider-wrap'));
 
 /***/ },
 /* 1 */
@@ -18274,8 +18275,10 @@
 
 				if (pressedKey === ARROW_LEFT_KEY_CODE) {
 					this._goBack();
+					this.setTransitionInterval();
 				} else if (pressedKey === ARROW_RIGHT_KEY_CODE) {
 					this._goForward();
+					this.setTransitionInterval();
 				} else {
 					return false;
 				}
@@ -18284,13 +18287,22 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				window.addEventListener('keydown', this._onKeyPressHandle.bind(this));
+				this.setTransitionInterval();
+			}
+		}, {
+			key: 'setTransitionInterval',
+			value: function setTransitionInterval() {
+				if (this.interval) {
+					clearInterval(this.interval);
+				}
+				this.interval = setInterval(this._goForward.bind(this), this.props.interval);
 			}
 		}, {
 			key: 'render',
 			value: function render() {
 				return _react2['default'].createElement(
 					'div',
-					{ className: 'slider', style: _sliderStylesJs2['default'] },
+					{ className: 'slider', style: (0, _sliderStylesJs2['default'])().sliderCSS },
 					_react2['default'].createElement(_SlideJsx2['default'], { value: this.props.slides[this.state.currentSlideIndex] }),
 					';'
 				);
@@ -18346,7 +18358,7 @@
 				return _react2['default'].createElement(
 					'div',
 					{ className: 'slide' },
-					_react2['default'].createElement('img', { src: this.props.value.src, style: _sliderStylesJs2['default'] })
+					_react2['default'].createElement('img', { src: this.props.value.src, style: (0, _sliderStylesJs2['default'])().slideCSS })
 				);
 			}
 		}]);
@@ -18369,10 +18381,23 @@
 	var sliderCSS = {
 		'backgroundColor': '#f6f6f6',
 		'width': '700px',
+		'height': '450px',
+		'border': '15px solid grey'
+	};
+
+	var slideCSS = {
+		'width': '700px',
 		'height': '450px'
 	};
 
-	exports['default'] = sliderCSS;
+	var getStyles = function getStyles() {
+		return {
+			sliderCSS: sliderCSS,
+			slideCSS: slideCSS
+		};
+	};
+
+	exports['default'] = getStyles;
 	module.exports = exports['default'];
 
 /***/ }
