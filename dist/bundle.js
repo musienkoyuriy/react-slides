@@ -18245,10 +18245,6 @@
 			this.state = {
 				currentSlideIndex: 0
 			};
-			this.props = {
-				interval: 3000,
-				slides: []
-			};
 		}
 
 		_createClass(Slider, [{

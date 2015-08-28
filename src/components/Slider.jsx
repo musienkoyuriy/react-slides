@@ -12,10 +12,6 @@ export default class Slider extends Component {
 		this.state = {
 			currentSlideIndex: 0
 		};
-		this.props = {
-			interval: 3000,
-			slides: []
-		};
 	}	
 
 	propTypes: {
@@ -27,7 +23,7 @@ export default class Slider extends Component {
 		let currentSlideIndex = this.state.currentSlideIndex;
 
 		currentSlideIndex = currentSlideIndex !== 0 ? currentSlideIndex-1 : 0;
-		this.setState({currentSlideIndex: currentSlideIndex})
+		this.setState({currentSlideIndex: currentSlideIndex});
 	}
 
 	_goForward() {
@@ -35,7 +31,7 @@ export default class Slider extends Component {
 		let lastIndex = this.props.slides.length - 1;
 
 		currentSlideIndex = currentSlideIndex !== lastIndex ? currentSlideIndex + 1 : lastIndex;
-		this.setState({currentSlideIndex: currentSlideIndex})
+		this.setState({currentSlideIndex: currentSlideIndex});
 	}
 
 	_onKeyPressHandle(e) {
@@ -61,7 +57,7 @@ export default class Slider extends Component {
 		if (this.interval) {
 			clearInterval(this.interval);
 		}
-		this.interval = setInterval(this._goForward.bind(this), this.props.interval)
+		this.interval = setInterval(this._goForward.bind(this), this.props.interval);
 	}
 
 	render() {
