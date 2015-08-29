@@ -17,7 +17,7 @@ The simple UI component for making presentation. Based on ReactJS library and We
 	]; 
 	
 	React.render(<Slider slides={slidesData} 
-			     interval={3000} />, 
+			     		 interval={3000} />, 
 	document.getElementById('slider-wrap'));
       
       
