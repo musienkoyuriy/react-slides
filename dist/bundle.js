@@ -18288,6 +18288,9 @@
 		}, {
 			key: 'setTransitionInterval',
 			value: function setTransitionInterval() {
+				if (!this.props.interval) {
+					return false;
+				}
 				if (this.interval) {
 					clearInterval(this.interval);
 				}
