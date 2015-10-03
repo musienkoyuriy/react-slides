@@ -18390,10 +18390,7 @@
 	};
 
 	var getStyles = function getStyles() {
-		return {
-			sliderCSS: sliderCSS,
-			slideCSS: slideCSS
-		};
+		return { sliderCSS: sliderCSS, slideCSS: slideCSS };
 	};
 
 	exports['default'] = getStyles;

@@ -11,10 +11,7 @@ let slideCSS = {
 };
 
 let getStyles = () => {
-	return {
-		sliderCSS: sliderCSS,
-		slideCSS: slideCSS
-	};
+	return {sliderCSS, slideCSS};
 }
 
 export default getStyles;
