@@ -62,8 +62,7 @@
 
 	var slidesData = [{ name: 'photo1', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/React.js_logo.svg/2000px-React.js_logo.svg.png' }, { name: 'photo2', src: 'http://blog.addthiscdn.com/wp-content/uploads/2014/11/addthis-react-flux-javascript-scaling.png' }, { name: 'photo3', src: 'http://daynin.github.io/clojurescript-presentation/img/react-logo.png' }];
 
-	_reactDom2['default'].render(_react2['default'].createElement(_componentsSlider2['default'], { slides: slidesData,
-		interval: 3000 }), document.getElementById('slider-wrap'));
+	_reactDom2['default'].render(_react2['default'].createElement(_componentsSlider2['default'], { slides: slidesData, interval: 3000 }), document.getElementById('slider-wrap'));
 
 /***/ },
 /* 1 */
@@ -19661,7 +19660,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-		value: true
+	  value: true
 	});
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -19690,76 +19689,90 @@
 	var ARROW_RIGHT_KEY_CODE = 39;
 
 	var Slider = (function (_Component) {
-		_inherits(Slider, _Component);
+	  _inherits(Slider, _Component);
 
-		function Slider() {
-			_classCallCheck(this, Slider);
+	  function Slider() {
+	    _classCallCheck(this, Slider);
 
-			_get(Object.getPrototypeOf(Slider.prototype), 'constructor', this).call(this);
-			this.state = {
-				currentSlideIndex: 0
-			};
-		}
+	    _get(Object.getPrototypeOf(Slider.prototype), 'constructor', this).call(this);
+	    this._bind('_goForward', '_onKeyPressHandle');
+	    this.state = {
+	      currentSlideIndex: 0
+	    };
+	  }
 
-		_createClass(Slider, [{
-			key: '_goBack',
-			value: function _goBack() {
-				var currentSlideIndex = this.state.currentSlideIndex;
-				currentSlideIndex = currentSlideIndex !== 0 ? currentSlideIndex - 1 : 0;
-				this.setState({ currentSlideIndex: currentSlideIndex });
-			}
-		}, {
-			key: '_goForward',
-			value: function _goForward() {
-				var currentSlideIndex = this.state.currentSlideIndex;
-				var lastIndex = this.props.slides.length - 1;
-				currentSlideIndex = currentSlideIndex !== lastIndex ? currentSlideIndex + 1 : lastIndex;
-				this.setState({ currentSlideIndex: currentSlideIndex });
-			}
-		}, {
-			key: '_onKeyPressHandle',
-			value: function _onKeyPressHandle(e) {
-				var pressedKey = e.keyCode;
-				if (pressedKey === ARROW_LEFT_KEY_CODE) {
-					this._goBack();
-					this.setTransitionInterval();
-				} else if (pressedKey === ARROW_RIGHT_KEY_CODE) {
-					this._goForward();
-					this.setTransitionInterval();
-				} else {
-					return false;
-				}
-			}
-		}, {
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				window.addEventListener('keydown', this._onKeyPressHandle.bind(this));
-				this.setTransitionInterval();
-			}
-		}, {
-			key: 'setTransitionInterval',
-			value: function setTransitionInterval() {
-				if (!this.props.interval) {
-					return false;
-				}
-				if (this.interval) {
-					clearInterval(this.interval);
-				}
-				this.interval = setInterval(this._goForward.bind(this), this.props.interval);
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2['default'].createElement(
-					'div',
-					{ className: 'slider', style: (0, _sliderStyles2['default'])().sliderCSS },
-					_react2['default'].createElement(_Slide2['default'], { value: this.props.slides[this.state.currentSlideIndex] }),
-					';'
-				);
-			}
-		}]);
+	  _createClass(Slider, [{
+	    key: '_bind',
+	    value: function _bind() {
+	      var _this = this;
 
-		return Slider;
+	      for (var _len = arguments.length, methods = Array(_len), _key = 0; _key < _len; _key++) {
+	        methods[_key] = arguments[_key];
+	      }
+
+	      methods.forEach(function (method) {
+	        _this[method] = _this[method].bind(_this);
+	      });
+	    }
+	  }, {
+	    key: '_goBack',
+	    value: function _goBack() {
+	      var currentSlideIndex = this.state.currentSlideIndex;
+	      currentSlideIndex = currentSlideIndex !== 0 ? currentSlideIndex - 1 : 0;
+	      this.setState({ currentSlideIndex: currentSlideIndex });
+	    }
+	  }, {
+	    key: '_goForward',
+	    value: function _goForward() {
+	      var currentSlideIndex = this.state.currentSlideIndex;
+	      var lastIndex = this.props.slides.length - 1;
+	      currentSlideIndex = currentSlideIndex !== lastIndex ? currentSlideIndex + 1 : lastIndex;
+	      this.setState({ currentSlideIndex: currentSlideIndex });
+	    }
+	  }, {
+	    key: '_onKeyPressHandle',
+	    value: function _onKeyPressHandle(e) {
+	      var pressedKey = e.keyCode;
+	      if (pressedKey === ARROW_LEFT_KEY_CODE) {
+	        this._goBack();
+	        this.setTransitionInterval();
+	      } else if (pressedKey === ARROW_RIGHT_KEY_CODE) {
+	        this._goForward();
+	        this.setTransitionInterval();
+	      } else {
+	        return false;
+	      }
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      window.addEventListener('keydown', this._onKeyPressHandle);
+	      this.setTransitionInterval();
+	    }
+	  }, {
+	    key: 'setTransitionInterval',
+	    value: function setTransitionInterval() {
+	      if (!this.props.interval) {
+	        return false;
+	      }
+	      if (this.interval) {
+	        clearInterval(this.interval);
+	      }
+	      this.interval = setInterval(this._goForward, this.props.interval);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'slider', style: (0, _sliderStyles2['default'])().sliderCSS },
+	        _react2['default'].createElement(_Slide2['default'], { value: this.props.slides[this.state.currentSlideIndex] }),
+	        ';'
+	      );
+	    }
+	  }]);
+
+	  return Slider;
 	})(_react.Component);
 
 	exports['default'] = Slider;
@@ -19772,7 +19785,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-		value: true
+	  value: true
 	});
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -19786,13 +19799,13 @@
 	var _sliderStyles2 = _interopRequireDefault(_sliderStyles);
 
 	exports['default'] = function (props) {
-		var src = props.value.src;
+	  var src = props.value.src;
 
-		return _react2['default'].createElement(
-			'div',
-			{ className: 'slide' },
-			_react2['default'].createElement('img', { src: src, style: (0, _sliderStyles2['default'])().slideCSS })
-		);
+	  return _react2['default'].createElement(
+	    'div',
+	    { className: 'slide' },
+	    _react2['default'].createElement('img', { src: src, style: (0, _sliderStyles2['default'])().slideCSS })
+	  );
 	};
 
 	module.exports = exports['default'];
@@ -19804,19 +19817,19 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-		value: true
+	  value: true
 	});
 	var sliderCSS = {
-		'backgroundColor': '#f6f6f6',
-		'width': '700px',
-		'height': '450px',
-		'border': '15px solid grey'
+	  'backgroundColor': '#f6f6f6',
+	  'width': '700px',
+	  'height': '450px',
+	  'border': '15px solid grey'
 	};
 
 	var slideCSS = { 'width': '700px', 'height': '450px' };
 
 	exports['default'] = function () {
-		return { sliderCSS: sliderCSS, slideCSS: slideCSS };
+	  return { sliderCSS: sliderCSS, slideCSS: slideCSS };
 	};
 
 	module.exports = exports['default'];

@@ -8,6 +8,7 @@ const ARROW_RIGHT_KEY_CODE = 39;
 export default class Slider extends Component {
   constructor() {
     super();
+    this._bind('_goForward', '_onKeyPressHandle');
     this.state = {
       currentSlideIndex: 0
     };
@@ -18,17 +19,23 @@ export default class Slider extends Component {
     interval: React.PropTypes.number
   }
 
+  _bind(...methods) {
+    methods.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
   _goBack() {
     let currentSlideIndex = this.state.currentSlideIndex;
     currentSlideIndex = currentSlideIndex !== 0 ? currentSlideIndex-1 : 0;
-    this.setState({currentSlideIndex: currentSlideIndex});
+    this.setState({ currentSlideIndex: currentSlideIndex });
   }
 
   _goForward() {
     let currentSlideIndex = this.state.currentSlideIndex;
     let lastIndex = this.props.slides.length - 1;
     currentSlideIndex = currentSlideIndex !== lastIndex ? currentSlideIndex + 1 : lastIndex;
-    this.setState({currentSlideIndex: currentSlideIndex});
+    this.setState({ currentSlideIndex: currentSlideIndex });
   }
 
   _onKeyPressHandle(e) {
@@ -45,7 +52,7 @@ export default class Slider extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('keydown', this._onKeyPressHandle.bind(this));
+    window.addEventListener('keydown', this._onKeyPressHandle);
     this.setTransitionInterval();
   }
 
@@ -56,12 +63,12 @@ export default class Slider extends Component {
     if (this.interval) {
       clearInterval(this.interval);
     }
-    this.interval = setInterval(this._goForward.bind(this), this.props.interval);
+    this.interval = setInterval(this._goForward, this.props.interval);
   }
 
   render() {
     return (
-      <div className="slider" style={getStyles().sliderCSS}>
+      <div className="slider" style={ getStyles().sliderCSS }>
          <Slide value={this.props.slides[this.state.currentSlideIndex]}/>;
       </div>
     );
