@@ -3,7 +3,7 @@ The simple UI component for making presentation. Based on ReactJS library and We
 
 # Install:
 
-      npm install reactslides
+      npm install react-slides
       
 # Usage:
 	

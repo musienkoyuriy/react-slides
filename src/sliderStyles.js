@@ -5,13 +5,9 @@ let sliderCSS = {
 	'border': '15px solid grey'
 };
 
-let slideCSS = {
-	'width': '700px',
-	'height': '450px'
-};
+let slideCSS = { 'width': '700px', 'height': '450px' };
 
-let getStyles = () => {
-	return {sliderCSS, slideCSS};
+export default () => {
+	return { sliderCSS, slideCSS };
 }
 
-export default getStyles;
